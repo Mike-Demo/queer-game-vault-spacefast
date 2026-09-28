@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--
+      CSP as the first head element: a meta-delivered policy only governs
+      resources parsed after it, so it must precede styles, preloads, and
+      scripts.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://umami-lite.view.fast; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.igdb.com https://cdn.sanity.io https://app.aikido.dev; font-src 'self'; connect-src 'self' https://mfwitqkhpuqnuwjwvtiy.supabase.co wss://mfwitqkhpuqnuwjwvtiy.supabase.co https://tzh8tziu.api.sanity.io https://tzh8tziu.apicdn.sanity.io https://umami-lite.view.fast; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>QueerCade</title>
+    <meta
+      name="description"
+      content="A curated arcade of games: IGDB discovery with a Sanity editorial workflow."
+    />
+    <meta property="og:title" content="QueerCade" />
+    <meta
+      property="og:description"
+      content="A curated arcade of games: IGDB discovery with a Sanity editorial workflow."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="QueerCade" />
+    <meta property="og:image" content="https://queercade.mikedemo.dev/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://queercade.mikedemo.dev/og-image.png" />
+    <meta
+      name="google-site-verification"
+      content="RHlwBdxnagu8yjEC1UQ3cV-WcIJ17lGECi8uJYHO6P4"
+    />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <!-- The pixel font is self-hosted, so preload it instead of connecting to a
+      third-party font host. Cover art comes from the image CDN. -->
+    <link
+      rel="preload"
+      href="/fonts/press-start-2p-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://images.igdb.com" crossorigin="anonymous" />
+    <!-- Private analytics tracker (loads on every page). -->
+    <script
+      defer
+      src="https://umami-lite.view.fast/tracker.js"
+      data-website-id="d6f0c101-7e14-4719-8a37-510d659b3ff9"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/spa/main.tsx"></script>
+  </body>
+</html>

@@ -117,7 +117,7 @@ function DiscoverPage() {
       const next = term.trim();
       if (next === (search.q ?? "")) return;
       void navigate({
-        search: (previous) => ({ ...previous, q: next.length > 0 ? next : undefined }),
+        search: (previous: DiscoverSearch) => ({ ...previous, q: next.length > 0 ? next : undefined }),
         replace: true,
       });
     }, 350);
@@ -138,7 +138,7 @@ function DiscoverPage() {
 
   function setFilter(key: "genre" | "platform" | "theme", value: string) {
     void navigate({
-      search: (previous) => ({ ...previous, [key]: value.length > 0 ? value : undefined }),
+      search: (previous: DiscoverSearch) => ({ ...previous, [key]: value.length > 0 ? value : undefined }),
       replace: true,
     });
   }

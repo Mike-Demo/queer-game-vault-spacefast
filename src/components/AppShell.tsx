@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { NesBadge, NesButton, NesText } from "@/design-system/nes-229931";
 import { useEditorAccess, useSession } from "@/hooks/useAuth";
+import { EDITORIAL_AVAILABLE } from "@/lib/igdb.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { siteSettingsQueryOptions } from "@/lib/publicData";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -37,9 +38,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { session } = useSession();
   const { data: access } = useEditorAccess(Boolean(session));
   const isEditor = Boolean(access?.role);
+  // SpaceFast preview: the editorial import pipeline is intentionally out of
+  // scope, so editor-only nav targets are hidden even for admins.
+  const showEditorNav = isEditor && EDITORIAL_AVAILABLE;
 
   const sourceNav = settings?.primaryNavigation?.length ? settings.primaryNavigation : FALLBACK_NAV;
-  const visibleNav = sourceNav.filter((item) => !EDITOR_PATHS.has(item.path) || isEditor);
+  const visibleNav = sourceNav.filter((item) => !EDITOR_PATHS.has(item.path) || showEditorNav);
   const candidates = [...visibleNav, ...PUBLIC_EXTRA_NAV, ...(session ? SIGNED_IN_NAV : [])];
   const seen = new Set<string>();
   const navItems = candidates.filter((item) => {
@@ -70,7 +74,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   </Link>
                 </li>
               ))}
-              {isEditor ? (
+              {showEditorNav ? (
                 <li>
                   <Link to="/review" data-active={currentPath === "/review"}>
                     Review
